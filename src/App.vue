@@ -1,17 +1,15 @@
 <template>
-  <HelloWorld></HelloWorld>
-  <Demo></Demo>
+  <div>导航栏
+    <router-link to='/'>demo</router-link>|
+    <router-link to='/hi'>hello</router-link>
+  </div>
+  <hr>
+  <router-view />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import Demo from './components/Demo.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld,
-    Demo
-  }
 }
 </script>
