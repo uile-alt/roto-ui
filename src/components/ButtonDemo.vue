@@ -1,8 +1,8 @@
 <template>
   <div>Button的文档</div>
 </template>
-<script>
+<script lang='ts'>
 export default {
-  name: "Button",
+  name: "ButtonDemo",
 };
 </script>
