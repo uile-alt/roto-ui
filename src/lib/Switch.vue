@@ -1,7 +1,6 @@
 <template>
   <div>Switch组件</div>
   <br />
-  <!-- <button><span></span></button> -->
   <button @click="toggle" :class="{ checked: value }"><span></span></button>
   <div>{{ value }}</div>
 </template>
@@ -12,7 +11,7 @@ export default {
   },
   setup(props, context) {
     const toggle = () => {
-      context.emit("input", !props.value);
+      context.emit("update:value", !props.value);
     };
     return { toggle };
   },
@@ -29,6 +28,7 @@ button {
   border-radius: $h/2;
   position: relative;
 }
+
 span {
   position: absolute;
   top: 2px;
