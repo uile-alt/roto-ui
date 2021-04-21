@@ -9,7 +9,7 @@ import { ref } from "vue";
 export default {
   components: { Switch },
   setup() {
-    const bool = ref(true);
+    const bool = ref(false);
     return { bool };
   },
 };
