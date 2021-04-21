@@ -1,5 +1,6 @@
 <template>
-    <button class="r-button" :class="classes">
+    <button class="r-button" :class="classes" :disabled="disabled">
+        <span v-if="loading" class="r-loadingIndicator"></span>
         <slot/>
     </button>
 </template>
@@ -20,6 +21,14 @@
       level:{
         type:String,
         default:"normal"
+      },
+      disabled:{
+        type: Boolean,
+        default: false
+      },
+      loading:{
+        type: Boolean,
+        default: false
       }
     },
     setup(props) {
@@ -42,6 +51,7 @@
     $blue: #40a9ff;
     $radius: 4px;
     $red: red;
+    $grey: grey;
     .r-button {
         box-sizing: border-box;
         height: $h;
@@ -146,5 +156,35 @@
                 }
             }
         }
+        &.r-theme-button {
+            &[disabled] {
+                cursor: not-allowed;
+                color: $grey;
+                &:hover {
+                    border-color: $grey;
+                }
+            }
+        }
+        &.r-theme-link, &.r-theme-text {
+            &[disabled] {
+                cursor: not-allowed;
+                color: $grey;
+            }
+        }
+        > .r-loadingIndicator{
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+            margin-right: 4px;
+            border-radius: 8px;
+            border-color: $blue $blue $blue transparent;
+            border-style: solid;
+            border-width: 2px;
+            animation: r-spin 1s infinite linear;
+        }
+    }
+    @keyframes r-spin {
+        0%{transform: rotate(0deg)}
+        100%{transform: rotate(360deg)}
     }
 </style>
