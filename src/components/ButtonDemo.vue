@@ -1,6 +1,6 @@
 <template>
   <div>示例1</div>
-  <Button >hi</Button>
+  <Button @click="onClick">hi</Button>
   <Button theme="button">hi</Button>
   <Button theme="link">hi</Button>
   <Button theme="text">hi</Button>
