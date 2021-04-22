@@ -1,21 +1,24 @@
 <template>
   <template v-if="visible">
-    <div class="r-dialog-overlay" @click="closeOnClickOverlay"></div>
-    <div class="r-dialog-wrapper">
-      <div class="r-dialog">
-        <header>
-          <slot name="title"></slot>
-           <span @click="close" class="r-dialog-close"></span>
-        </header>
-        <main>
-          <slot name="content" />
-        </main>
-        <footer>
-          <Button level="main" @click="ok">确认</Button>
-          <Button @click="cancel">取消</Button>
-        </footer>
+    <Teleport to="body">
+      <div class="r-dialog-overlay" @click="closeOnClickOverlay"></div>
+      <div class="r-dialog-wrapper">
+        <div class="r-dialog">
+          <header>
+            <slot name="title"></slot>
+            <span @click="close" class="r-dialog-close"></span>
+          </header>
+          <main>
+            <slot name="content" />
+          </main>
+          <footer>
+            <Button level="main" @click="ok">确认</Button>
+            <Button @click="cancel">取消</Button>
+          </footer>
+        </div>
       </div>
-    </div>
+    </Teleport>
+
   </template>
 </template>
 <script lang="ts">
@@ -40,11 +43,13 @@ export default {
     },
   },
   setup(props, context) {
+    console.log(typeof props.closeOnClickOverlay);
     const close = () => {
       context.emit("update:visible", false);
     };
     const closeOnClickOverlay = () => {
       if (props.closeOnClickOverlay) {
+        console.log(2234);
         close();
       }
     };
@@ -55,7 +60,7 @@ export default {
       }
     };
     const cancel = () => {
-      context.emit("cancel");
+      props.cancel?.()
       close();
     };
     return { close, closeOnClickOverlay, ok, cancel };
