@@ -26,8 +26,6 @@ export default {
       x.value = !x.value;
     };
     const f1 = () => {
-      console.log(1);
-      return true;
     };
     const f2 = () => {};
     const showDialog = ()=>{
@@ -37,7 +35,6 @@ export default {
         closeOnClickOverlay:false,
         ok() {
           console.log('ok')
-          console.log(11111111);
         },
         cancel() {
           console.log('cancel')
