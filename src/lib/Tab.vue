@@ -1,3 +1,7 @@
-<template></template>
+<template>
+    <div>
+        <slot></slot>
+    </div>
+</template>
 <script lang="ts"></script>
 <style lang="scss"></style>

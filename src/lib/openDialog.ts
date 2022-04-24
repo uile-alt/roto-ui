@@ -2,8 +2,6 @@ import Dialog from "./Dialog.vue";
 import { createApp, h } from "vue";
 export const openDialog = (options) => {
   const { title, content, ok, cancel,closeOnClickOverlay} = options;
-  console.log(typeof title);
-  console.log(typeof content);
   const div = document.createElement("div");
   document.body.appendChild(div);
   const close = () => {
