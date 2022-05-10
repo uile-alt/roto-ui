@@ -7,7 +7,8 @@
   <div>{{ value }}</div>
 </template>
 <script lang='ts'>
-export default {
+import {defineComponent} from 'vue'
+export default defineComponent({
   props: {
     value: Boolean,
   },
@@ -17,7 +18,7 @@ export default {
     };
     return { toggle };
   },
-};
+});
 </script>
 <style lang="scss" >
 $h: 22px;

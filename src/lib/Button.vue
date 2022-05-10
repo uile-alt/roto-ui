@@ -7,8 +7,8 @@
 
 <script lang='ts'>
   import {computed} from 'vue'
-
-  export default {
+import {defineComponent} from 'vue'
+  export default defineComponent({
     props: {
       theme: {
         type: String,
@@ -42,7 +42,7 @@
         })
       return {classes}
     }
-  };
+  });
 </script>
 <style lang="scss">
     $h: 32px;

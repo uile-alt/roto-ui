@@ -23,8 +23,8 @@
 </template>
 <script lang="ts">
 import Button from "./Button.vue";
-
-export default {
+import {defineComponent} from 'vue'
+export default defineComponent({
   components: { Button },
   props: {
     visible: {
@@ -62,7 +62,7 @@ export default {
     };
     return { close, closeOnClickOverlay, ok, cancel };
   },
-};
+});
 </script>
 <style lang="scss">
 $radius: 4px;
