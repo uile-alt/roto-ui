@@ -1,16 +1,17 @@
 <template>
     <div class="r-tabs">
         <div class="r-tabs-nav">
-            <div class="r-tabs-nav-item" :class="{selected: t=== selected}" v-for="(t,index) in titles" :key="index">{{t}}</div>
+            <div class="r-tabs-nav-item" v-for="(t,index) in titles" @click="select(t)" :class="{selected: t=== selected}"  :key="index">{{t}}</div>
         </div>
         <div class="r-tabs-content">
-            <component class="r-tabs-content-item" v-for="(c,index) in defaults" :is="c" :key="index" />
+            <component class="r-tabs-content-item"  :class="{selected: c.props.title === selected}"
+            v-for="(c,key) in defaults" :key="key" :is="c"/>
         </div>
     </div>
 </template>
 <script lang="ts">
     import Tab from './Tab.vue'
-    import {defineComponent} from 'vue'
+    import {computed, defineComponent} from 'vue'
     export default defineComponent(
       {
         props:{
@@ -23,14 +24,24 @@
           const defaults = context.slots.default()
 
           defaults.forEach((tag)=>{
+            console.log(tag.type);
             if(tag.type !== Tab){
+              
               throw new Error('Tabs 子标签必须为 Tab')
             }
           })
+          const select =(title:string)=>{
+            context.emit('update:selected',title)
+          }
+          const current  = computed(()=>{
+            return defaults.filter((tag)=>{
+            return tag.props.title === props.selected
+          })[0]
+          }) 
           const titles = defaults.map((tag)=>{
             return tag.props.title
           })
-          return {defaults,titles}
+          return {defaults,titles,current,select}
         }
       }
     )
@@ -48,6 +59,7 @@
                 padding: 8px 0;
                 margin: 0 16px;
                 cursor: pointer;
+                
                 &:first-child {
                     margin-left: 0;
                 }
@@ -58,6 +70,12 @@
         }
         &-content {
             padding: 8px 0;
+            &-item{
+              display: none;
+              &.selected{
+                display: block;
+              }
+            }
         }
     }
 </style>
