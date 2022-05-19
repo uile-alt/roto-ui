@@ -1,7 +1,7 @@
 <template>
   <template v-if="visible">
     <Teleport to="body">
-      <div class="r-dialog-overlay" @click="closeOnClickOverlay"></div>
+      <div class="r-dialog-overlay" @click="closeOnClickOverlay1"></div>
       <div class="r-dialog-wrapper">
         <div class="r-dialog">
           <header>
@@ -18,12 +18,11 @@
         </div>
       </div>
     </Teleport>
-
   </template>
 </template>
-<script lang="ts">
+<!-- <script lang="ts">
 import Button from "./Button.vue";
-import {defineComponent} from 'vue'
+import { defineComponent } from "vue";
 export default defineComponent({
   components: { Button },
   props: {
@@ -57,12 +56,53 @@ export default defineComponent({
       }
     };
     const cancel = () => {
-      props.cancel?.()
+      props.cancel?.();
       close();
     };
     return { close, closeOnClickOverlay, ok, cancel };
   },
 });
+</script> -->
+<script setup lang="ts">
+import Button from "./Button.vue";
+const props = defineProps<{
+  visible: {
+    type: boolean;
+    default: false;
+  };
+  closeOnClickOverlay: {
+    type: boolean;
+    default: true;
+  };
+  ok: {
+    type: Function;
+  };
+  cancel: {
+    type: Function;
+  };
+}>();
+const emit = defineEmits(["update:visible"]);
+function close() {
+  emit("update:visible", false);
+}
+const closeOnClickOverlay1 = () => {
+  console.log("1312313");
+
+  if (props.closeOnClickOverlay) {
+    close();
+  }
+};
+function ok() {
+  //@ts-ignore
+  if (props.ok?.() !== false) {
+    close();
+  }
+}
+const cancel = () => {
+  //@ts-ignore
+  props.cancel?.();
+  close();
+};
 </script>
 <style lang="scss">
 $radius: 4px;

@@ -11,7 +11,7 @@
 const props = defineProps<{
   value: Boolean;
 }>();
-const emit = defineEmits(["update:value", "hi"]);
+const emit = defineEmits(["update:value"]);
 
 function toggle() {
   emit("update:value", !props.value);

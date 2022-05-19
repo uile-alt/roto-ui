@@ -22,9 +22,9 @@
   </div>
   <div>示例3</div>
   <div>
-  <Button level="main">主要按钮</Button>
-  <Button>普通按钮</Button>
-  <Button level="danger">危险按钮</Button>
+    <Button level="main">主要按钮</Button>
+    <Button>普通按钮</Button>
+    <Button level="danger">危险按钮</Button>
   </div>
   <div>
     <Button theme="link" level="main">主要链接按钮</Button>
@@ -44,15 +44,9 @@
   <div>示例5</div>
   <Button loading>加载中</Button>
 </template>
-<script lang='ts'>
+<script setup lang="ts">
 import Button from "../lib/Button.vue";
-export default {
-  components: { Button },
-  setup() {
-    const onClick = () => {
-      console.log("hi");
-    };
-    return { onClick };
-  },
+const onClick = () => {
+  console.log("hi");
 };
 </script>

@@ -7,6 +7,6 @@
 <script setup lang="ts">
 import Switch from "../lib/Switch.vue";
 import { ref } from "vue";
-const bool = ref(false);
+const bool = ref<boolean>(false);
 </script>
 >
