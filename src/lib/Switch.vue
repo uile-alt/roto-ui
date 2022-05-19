@@ -6,21 +6,18 @@
   </button>
   <div>{{ value }}</div>
 </template>
-<script lang='ts'>
-import {defineComponent} from 'vue'
-export default defineComponent({
-  props: {
-    value: Boolean,
-  },
-  setup(props, context) {
-    const toggle = () => {
-      context.emit("update:value", !props.value);
-    };
-    return { toggle };
-  },
-});
+
+<script setup lang="ts">
+const props = defineProps<{
+  value: Boolean;
+}>();
+const emit = defineEmits(["update:value", "hi"]);
+
+function toggle() {
+  emit("update:value", !props.value);
+}
 </script>
-<style lang="scss" >
+<style lang="scss">
 $h: 22px;
 $h2: $h - 4px;
 .r-switch {
@@ -61,4 +58,4 @@ $h2: $h - 4px;
     }
   }
 }
-</style> 
+</style>
