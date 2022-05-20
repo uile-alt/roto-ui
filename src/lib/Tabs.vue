@@ -20,13 +20,14 @@
     </div>
 
     <div class="r-tabs-content">
-      <component
+      <!-- <component
         class="r-tabs-content-item"
         :class="{ selected: c.props.title === selected }"
         v-for="(c, key) in defaults"
         :key="key"
         :is="c"
-      />
+      /> -->
+      <component :is="current" :key="current.props.title" />
     </div>
   </div>
 </template>
@@ -66,6 +67,9 @@ function select(title: string) {
 const titles = defaults.map((tag) => {
   return tag.props.title;
 });
+const current = computed(() => {
+  return defaults.find((tag) => tag.props.title === props.selected);
+});
 </script>
 <style lang="scss">
 $blue: #40a9ff;
@@ -101,12 +105,6 @@ $border-color: #d9d9d9;
   }
   &-content {
     padding: 8px 0;
-    &-item {
-      display: none;
-      &.selected {
-        display: block;
-      }
-    }
   }
 }
 </style>
