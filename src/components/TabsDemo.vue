@@ -6,15 +6,9 @@
   </Tabs>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { ref } from "vue";
 import Tab from "../lib/Tab.vue";
 import Tabs from "../lib/Tabs.vue";
-export default {
-  components: { Tab, Tabs },
-  setup() {
-    const x = ref("标签2");
-    return { x };
-  },
-};
+const x = ref("标签2");
 </script>

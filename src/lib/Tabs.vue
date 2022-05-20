@@ -30,65 +30,49 @@
     </div>
   </div>
 </template>
-<script lang="ts">
+
+<script setup lang="ts">
 import Tab from "./Tab.vue";
-import { ref, computed, defineComponent, onMounted, onUpdated } from "vue";
-export default defineComponent({
-  props: {
-    selected: {
-      type: String,
-    },
-  },
-  setup(props, context) {
-    const defaults = context.slots.default();
-    const navItems = ref<HTMLDivElement[]>([]);
-    const indicator = ref<HTMLDivElement>(null);
-    const container = ref<HTMLDivElement>(null);
-    const x = () => {
-      const divs = navItems.value;
-      const result = divs.filter((div) =>
-        div.classList.contains("selected")
-      )[0];
-      const { width } = result.getBoundingClientRect();
-      indicator.value.style.width = width + "px";
-      const { left: left1 } = container.value.getBoundingClientRect();
-      const { left: left2 } = result.getBoundingClientRect();
-      const left = left2 - left1;
-      indicator.value.style.left = left + "px";
-      console.log(result);
-    };
-    onMounted(x);
-    onUpdated(x);
-    defaults.forEach((tag) => {
-      if (tag.type !== Tab) {
-        throw new Error("Tabs 子标签必须为 Tab");
-      }
-    });
+import { useSlots, ref, computed, onMounted, onUpdated } from "vue";
+const props = defineProps<{
+  selected: string;
+}>();
 
-    const select = (title: string) => {
-      context.emit("update:selected", title);
-    };
+const defaults = useSlots().default();
+const navItems = ref<HTMLDivElement[]>([]);
+const indicator = ref<HTMLDivElement>(null);
+const container = ref<HTMLDivElement>(null);
+const x = () => {
+  const divs = navItems.value;
+  const result = divs.filter((div) => div.classList.contains("selected"))[0];
+  const { width } = result.getBoundingClientRect();
+  indicator.value.style.width = width + "px";
+  const { left: left1 } = container.value.getBoundingClientRect();
+  const { left: left2 } = result.getBoundingClientRect();
+  const left = left2 - left1;
+  indicator.value.style.left = left + "px";
+  console.log(result);
+};
+onMounted(x);
+onUpdated(x);
+defaults.forEach((tag) => {
+  if (tag.type !== Tab) {
+    throw new Error("Tabs 子标签必须为 Tab");
+  }
+});
+const emit = defineEmits(["update:selected"]);
 
-    const current = computed(() => {
-      return defaults.filter((tag) => {
-        return tag.props.title === props.selected;
-      })[0];
-    });
+function select(title: string) {
+  emit("update:selected", title);
+}
+const current = computed(() => {
+  return defaults.filter((tag) => {
+    return tag.props.title === props.selected;
+  })[0];
+});
 
-    const titles = defaults.map((tag) => {
-      return tag.props.title;
-    });
-
-    return {
-      container,
-      indicator,
-      navItems,
-      defaults,
-      titles,
-      current,
-      select,
-    };
-  },
+const titles = defaults.map((tag) => {
+  return tag.props.title;
 });
 </script>
 <style lang="scss">
