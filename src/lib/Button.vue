@@ -5,73 +5,23 @@
   </button>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { computed } from "vue";
-import { defineComponent } from "vue";
-export default defineComponent({
-  props: {
-    theme: {
-      type: String,
-      default: "button",
-    },
-    size: {
-      type: String,
-      default: "normal",
-    },
-    level: {
-      type: String,
-      default: "normal",
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    loading: {
-      type: Boolean,
-      default: () => {
-        false;
-      },
-    },
-  },
-  setup(props) {
-    const { theme, size, level } = props;
-    const classes = computed(() => {
-      return {
-        [`r-theme-${theme}`]: theme,
-        [`r-size-${size}`]: size,
-        [`r-level-${level}`]: level,
-      };
-    });
-    return { classes };
-  },
+interface Props {
+  theme?: string;
+  size?: string;
+  level?: string;
+  disabled?: boolean;
+  loading?: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {
+  theme: "button",
+  size: "normal",
+  level: "normal",
+  disabled: false,
+  loading: false,
 });
-</script>
-<!-- <script setup lang="ts">
-import { computed } from "vue";
-const props = defineProps<{
-  theme: {
-    type: String;
-    default: "button";
-  };
-  size: {
-    type: String;
-    default: "normal";
-  };
-  level: {
-    type: String;
-    default: "normal";
-  };
-  disabled: {
-    type: Boolean;
-    default: false;
-  };
-  loading: {
-    type: Boolean;
-    default: () => {
-      false;
-    };
-  };
-}>();
+
 const { theme, size, level } = props;
 const classes = computed(() => {
   return {
@@ -80,7 +30,7 @@ const classes = computed(() => {
     [`r-level-${level}`]: level,
   };
 });
-</script> -->
+</script>
 <style lang="scss">
 $h: 32px;
 $border-color: #d9d9d9;

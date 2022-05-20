@@ -26,18 +26,13 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import Topnav from "../components/Topnav.vue";
 import { inject, Ref } from "vue";
-export default {
-  name: "Doc",
-  components: { Topnav },
-  setup() {
-    const asideVisible = inject<Ref<boolean>>("asideVisible");
-    return { asideVisible };
-  },
-};
+
+const asideVisible = inject<Ref<boolean>>("asideVisible");
 </script>
+
 <style lang="scss" scoped>
 .layout {
   display: flex;
